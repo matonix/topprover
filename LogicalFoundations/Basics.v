@@ -120,6 +120,8 @@ Example test_oddb1: oddb 1 = true.
 Proof. simpl. reflexivity. Qed.
 Example test_oddb2: oddb 4 = false.
 Proof. simpl. reflexivity. Qed.
+Example test_oddb3: oddb 2 = false.
+Proof. simpl. reflexivity. Qed.
 
 Module NatPlayground2.
 
