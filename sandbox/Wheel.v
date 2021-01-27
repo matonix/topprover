@@ -244,27 +244,77 @@ Qed.
 
 Theorem natWheel_3 : forall x y z : nat_w, (x + y) * z + zero * z = x * z + y * z.
 Proof.
-Admitted.
+  intros.
+  case x => a b; case y => c d; case z => e f.
+  rewrite /=.
+  rewrite mul1n 2!mul0n addn0 !mulnDl -!mulnA.
+  rewrite (_ : muln d (mult e f) = muln e (mult d f)).
+  rewrite (_ : muln b (mult e f) = muln e (mult b f)).
+  rewrite (_ : muln d (mult f f) = muln f (mult d f)).
+  by [].
+  by rewrite mulnCA.
+  by rewrite mulnCA.
+  by rewrite mulnCA.
+Qed.
 
 Theorem natWheel_4 : forall x y z : nat_w, x * inv y + z + zero * y = (x + y * z) * inv y.
 Proof.
-Admitted.
+  intros.
+  case x => a b; case y => c d; case z => e f.
+  rewrite /=.
+  rewrite mul1n 2!mul0n addn0 !mulnDl -!mulnA.
+  rewrite (_ : muln b (mult c d) = muln c (mult b d)).
+  rewrite (_ : muln e (mult c (mult b d)) = muln c (mult e (mult b d))).
+  rewrite (_ : muln c (mult f d) = muln d (mult f c)).
+  by [].
+  rewrite !mulnA mulnC -mulnA.
+  rewrite (_ : muln c f = muln f c).
+  by [].
+  by rewrite mulnC.
+  by rewrite mulnCA.
+  rewrite !mulnA.
+  rewrite (_ : muln b c = muln c b).
+  by [].
+  by rewrite mulnC.
+Qed.
 
 Theorem natWheel_5 : zero * zero = zero.
 Proof.
-Admitted.
+  rewrite /=.
+  rewrite mul0n mul1n.
+  by rewrite /zero.
+Qed.
 
 Theorem natWheel_6 : forall x y z : nat_w, (x + zero * y) * z = x * z + zero * y.
 Proof.
-Admitted.
+  intros.
+  case x => a b; case y => c d; case z => e f.
+  rewrite /=.
+  rewrite !mul1n !mul0n !addn0 -!mulnA.
+  rewrite (_ : muln d e = muln e d).
+  rewrite (_ : muln d f = muln f d).
+  by [].
+  by rewrite mulnC.
+  by rewrite mulnC.
+Qed.
 
 Theorem natWheel_7 : forall x y : nat_w, inv (x + zero * y) = inv x + zero * y.
 Proof.
-Admitted.
+  intros.
+  case x => a b; case y => c d.
+  rewrite /=.
+  rewrite !mul1n !mul0n !addn0.
+  by [].
+Qed.
 
 Theorem natWheel_8 : forall x : nat_w, x + zero * inv zero = zero * inv zero.
 Proof.
-Admitted.
+  intros.
+  case x => a b.
+  rewrite /=.
+  rewrite !mul1n !mul0n !addn0 !muln0.
+  by [].
+Qed.
 
 Instance natWheel : Wheel zero one add mul inv.
 Proof.
